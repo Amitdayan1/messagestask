@@ -1,5 +1,6 @@
 import './App.css';
-import * as React from "react";
+import React from "react";
+import HomePage from "./HomePage";
 
 
 class App extends React.Component {
@@ -7,6 +8,7 @@ class App extends React.Component {
         return (
 
             <div className="App">
+               <HomePage/>
                 <p className="names">This task made by Amit Dayan & Adi Dayan & </p>
             </div>
         );
