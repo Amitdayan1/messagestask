@@ -6,10 +6,9 @@ import HomePage from "./HomePage";
 class App extends React.Component {
     render() {
         return (
-
             <div className="App">
                <HomePage/>
-                <p className="names">This task made by Amit Dayan & Adi Dayan & </p>
+                <p className="names">This task made by Amit Dayan & Adi Dayan & Yuval Sarusi & Barak Bitan </p>
             </div>
         );
     }

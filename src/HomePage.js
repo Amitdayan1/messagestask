@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom";
+
 
 
 class HomePage extends React.Component {
@@ -57,7 +57,7 @@ class HomePage extends React.Component {
                         <input type="text" onChange={this.passwordChange} placeholder="Enter password.." maxLength="6"/></p>
                 </div>
                 <button onClick={this.signUp}>Sign Up</button>
-                {this.state.success&&<div> Welcome :)<p> to sign in press :<button> Sign in</button></p></div>}
+                {this.state.success&&<div> Welcome :)<p> to sign in press : <button> Sign in</button></p></div>}
             </div>
         )
 
