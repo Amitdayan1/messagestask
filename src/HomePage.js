@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 
 
@@ -7,7 +8,7 @@ class HomePage extends React.Component {
     state = {
         username: "",
         password: "",
-        success: false
+        validFields: false
     }
     usernameChange = (e) => {
         let username = e.target.value;
@@ -32,32 +33,43 @@ class HomePage extends React.Component {
         return regex.test(password);
     }
     signUp=()=> {
-        if(this.validatePhone(this.state.username)&&
-        this.validatePassword(this.state.password))
+        if (this.validatePhone(this.state.username) && this.validatePassword(this.state.password)){
             this.setState({
-                success:true
+                validFields: true
             })
+        axios.get("http://127.0.0.1:8989/add-user",{
+            params: {
+                username: this.state.username,
+                password: this.state.password
+            } })
+            .then((response)=> {
+                if (response.data) {
+                    alert("user created successfully")
+                }
+                else {  alert("username already exist ! ")}
+            })}
         else {
             this.setState({
-                success:false
+                validFields: false
             })
         }
-        console.log(this.state.success)}
+    }
 
     render() {
         return(
             <div>
-                <div>Welcome To Sign Up  :) </div>
+                <h1>Welcome</h1>
+                    <h3>To Sign Up  :) </h3>
                 <div>
                     <p> Please Enter Valid Username (Phone number) :
                         <input type="text" pattern="\d*" onChange={this.usernameChange} placeholder="Enter phone number.." maxLength="10"/></p>
                 </div>
                 <div>
                     <p> Please Enter Valid Password (A-Z-123...):
-                        <input type="text" onChange={this.passwordChange} placeholder="Enter password.." maxLength="6"/></p>
+                        <input type="text" onChange={this.passwordChange} placeholder="Enter password.." minLength="6"/></p>
                 </div>
                 <button onClick={this.signUp}>Sign Up</button>
-                {this.state.success&&<div> Welcome :)<p> to sign in go to: <button> Sign in</button></p></div>}
+                <p><button>Sign in</button></p>
             </div>
         )
 
