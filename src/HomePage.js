@@ -1,5 +1,9 @@
 import React from "react";
 import axios from "axios";
+import {Link} from "react-router-dom";
+import Cookies from "universal-cookie/es6";
+import {Redirect} from "react-router";
+
 
 
 
@@ -8,7 +12,8 @@ class HomePage extends React.Component {
     state = {
         username: "",
         password: "",
-        validFields: false
+        validFields: false,
+        success:false
     }
     usernameChange = (e) => {
         let username = e.target.value;
@@ -54,8 +59,30 @@ class HomePage extends React.Component {
             })
         }
     }
+    login=()=>{
+        axios.get("http://127.0.0.1:8989/log-in",{
+            params: {
+                username: this.state.username,
+                password: this.state.password
+            } }).then(response=> {
+                if (response.data=="0"){
+                    alert("This username not exist")
+                }
+                if(response.data=="1"){
+                    alert("Wrong password")
+                }
+                if(response.data!=="1" && response.data!=="0") {
+                    let cookies = new Cookies()
+                    cookies.set("token", response.data)
+                    this.setState({
+                        success: true
+                    })
+                }
+        })
+    }
 
     render() {
+        {if(this.state.success) return (<Redirect to={"/UserPage"}/>)}
         return(
             <div>
                 <h1>Welcome</h1>
@@ -65,11 +92,11 @@ class HomePage extends React.Component {
                         <input type="text" pattern="\d*" onChange={this.usernameChange} placeholder="Enter phone number.." maxLength="10"/></p>
                 </div>
                 <div>
-                    <p> Please Enter Valid Password (A-Z-123...):
+                    <p> Please Enter Valid Password (A-Z-123...) :
                         <input type="text" onChange={this.passwordChange} placeholder="Enter password.." minLength="6"/></p>
                 </div>
-                <button onClick={this.signUp}>Sign Up</button>
-                <p><button>Sign in</button></p>
+                <button onClick={this.signUp} style={{background:"cyan",width:"150px",height:"50px"}}>Sign Up</button>
+                <p><button style={{background:"greenyellow",width:"150px",height:"50px"}} onClick={this.login}>Sign in</button></p>
             </div>
         )
 

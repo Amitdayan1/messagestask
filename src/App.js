@@ -1,8 +1,10 @@
 import './App.css';
 import * as React from "react";
 import HomePage from "./HomePage";
-import {Route} from "react-router";
+import {Redirect, Route} from "react-router";
 import {BrowserRouter} from "react-router-dom";
+import MessageSender from "./MessageSender";
+import UserPage from "./UserPage";
 
 
 class App extends React.Component {
@@ -10,9 +12,11 @@ class App extends React.Component {
         return (
             <div className="App">
                 <BrowserRouter>
-                    <Route path={"/MessageSender"} component={"MessageSender"}/>
+                    <Redirect to={"/HomePage"}/>
+                    <Route path={"/HomePage"} component={HomePage}/>
+                    <Route path={"/MessageSender"} component={MessageSender}/>
+                    <Route path={"/UserPage"} component={UserPage}/>
                 </BrowserRouter>
-               <HomePage/>
                 <p className="names">This task made by Amit Dayan & Adi Dayan & Yuval Sarusi & Barak Bitan </p>
             </div>
         );
