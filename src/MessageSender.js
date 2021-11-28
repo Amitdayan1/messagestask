@@ -77,6 +77,7 @@ class MessageSender extends React.Component {
     render() {
         return(
             <div>
+                <p style={{textAlign:"left"}}><Link to={"/UserPage"}><button>Your Messages</button></Link></p>
                <h1> Send a message to your friends :) </h1>
                 <div style={{textAlign:"center"}}>
                     <p> Message to (Phone number) :

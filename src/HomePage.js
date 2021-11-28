@@ -65,23 +65,26 @@ class HomePage extends React.Component {
                 username: this.state.username,
                 password: this.state.password
             } }).then(response=> {
-                if (response.data=="0"){
-                    alert("This username not exist")
-                }
-                if(response.data=="1"){
-                    alert("Wrong password")
-                }
-                if(response.data!=="1" && response.data!=="0") {
-                    let cookies = new Cookies()
-                    cookies.set("token", response.data)
-                    this.setState({
-                        success: true
-                    })
-                }
-        })
+            if (response.data == "0") {
+                alert("This username not exist")
+            }
+            if (response.data == "1") {
+                alert("Wrong password")
+            }
+            if (response.data == "5") {
+                alert("Blocked Account Contact Administrator")
+            }
+            let cookies = new Cookies()
+            cookies.set("token", response.data)
+            this.setState({
+                success: true
+            })
+            })
     }
 
+
     render() {
+
         {if(this.state.success) return (<Redirect to={"/UserPage"}/>)}
         return(
             <div>
