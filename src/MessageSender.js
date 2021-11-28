@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Cookies from "universal-cookie/es6";
+import {Link} from "react-router-dom";
 
 
 
@@ -68,7 +69,10 @@ class MessageSender extends React.Component {
     //        })
     //    }
     //}
-
+    logOut=()=>{
+        let cookies=new Cookies();
+        cookies.remove("token");
+    }
 
     render() {
         return(
@@ -87,7 +91,7 @@ class MessageSender extends React.Component {
                         <input type="text" onChange={this.bodyChange} placeholder="Enter your message here.." maxLength="300" style={{width:"250px",height:"100px"}}/></p>
                 </div>
                 <button style={{background:"cyan",width:"150px",height:"50px"}} onClick={this.sendMessage}>SEND</button>
-
+                <p style={{textAlign:"left"}}><Link to={"/HomePage"}><button style={{background:"red"}} onClick={this.logOut}>Log Out</button></Link></p>
             </div>
         )
 
