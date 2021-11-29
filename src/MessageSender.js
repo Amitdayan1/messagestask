@@ -45,30 +45,18 @@ class MessageSender extends React.Component {
         })
 })}
     sendMessage=()=>{
-        axios.get("http://127.0.0.1:8989/add-message",{
+        axios.get("http://127.0.0.1:8989/send-message",{
             params: {
                 sender: this.state.currentUserName,
                 receiver: this.state.usernameReceiver,
                 title: this.state.title,
-                body: this.state.body,
-                sendDate: (1 - 5 - 2021),
-                readDate: (2 - 6 - 2021)
+                body: this.state.body
             }}).then(response=>{
                 if(response.data)
-                alert("Message Sent ")
+                alert("Message Sent")
             }
         )}
 
-    // usernameExist=()=>{
-    //     return true;
-    // }
-    // validateFields() {
-    //    if(this.state.title.length>0&&this.state.body.length>0 &&this.usernameExsit){
-    //        this.setState({
-    //            validFields:true
-    //        })
-    //    }
-    //}
     logOut=()=>{
         let cookies=new Cookies();
         cookies.remove("token");
