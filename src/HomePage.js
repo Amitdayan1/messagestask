@@ -65,20 +65,14 @@ class HomePage extends React.Component {
                 username: this.state.username,
                 password: this.state.password
             } }).then(response=> {
-            if (response.data == "0") {
-                alert("This username not exist")
-            }
-            if (response.data == "1") {
-                alert("Wrong password")
-            }
-            if (response.data == "5") {
-                alert("Blocked Account Contact Administrator")
-            }
+                switch (response.data){
+                    case "wrongName":  alert("This username not exist"); break;
+                    case "wrongPassword":  alert("Wrong password"); break;
+                    case "lockedUser":   alert("Blocked Account Contact Administrator"); break;
+                    default :this.setState({success:true});
+                }
             let cookies = new Cookies()
             cookies.set("token", response.data)
-            this.setState({
-                success: true
-            })
             })
     }
 
@@ -88,8 +82,7 @@ class HomePage extends React.Component {
         {if(this.state.success) return (<Redirect to={"/UserPage"}/>)}
         return(
             <div>
-                <h1>Welcome</h1>
-                    <h3>To Sign Up  :) </h3>
+                <h1>Welcome :)</h1>
                 <div>
                     <p> Please Enter Valid Username (Phone number) :
                         <input type="text" pattern="\d*" onChange={this.usernameChange} placeholder="Enter phone number.." maxLength="10"/></p>

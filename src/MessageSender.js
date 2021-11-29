@@ -32,19 +32,22 @@ class MessageSender extends React.Component {
             body:body
         })
     }
-    //need phone number by token
+
     getCurrentUserName=()=>{
     let cookies=new Cookies()
     let token= cookies.get("token")
-    axios.get("http://127.0.0.1:8989/get-sendername-by-token",{
-    params:token
-}).then(name=>{
-    let currentUserName=name.data
+    axios.get("http://127.0.0.1:8989/get-username-by-token",{
+    params:{
+        token:token
+    }
+}).then(response=>{
+    console.log(response.data)
         this.setState({
-            currentUserName:currentUserName
+            currentUserName:response.data
         })
 })}
     sendMessage=()=>{
+       this.getCurrentUserName()
         axios.get("http://127.0.0.1:8989/send-message",{
             params: {
                 sender: this.state.currentUserName,
@@ -52,8 +55,11 @@ class MessageSender extends React.Component {
                 title: this.state.title,
                 body: this.state.body
             }}).then(response=>{
-                if(response.data)
-                alert("Message Sent")
+                if(response.data){
+                alert("Message Sent")}
+                else {
+                    alert("one or more details are wrong")
+                }
             }
         )}
 
@@ -69,15 +75,15 @@ class MessageSender extends React.Component {
                <h1> Send a message to your friends :) </h1>
                 <div style={{textAlign:"center"}}>
                     <p> Message to (Phone number) :
-                        <input type="text" pattern="\d*" onChange={this.usernameReceiverChange} placeholder="Enter phone number.." maxLength="10"/></p>
+                        <input type="text" pattern="\d*" onChange={this.usernameReceiverChange} value={this.state.usernameReceiver} placeholder="Enter phone number.." maxLength="10"/></p>
                 </div>
                 <div>
                     <p> Title:
-                        <input type="text" onChange={this.titleChange} placeholder="Enter title.." maxLength="30"/></p>
+                        <input type="text" onChange={this.titleChange} value={this.state.title} placeholder="Enter title.." maxLength="30"/></p>
                 </div>
                 <div>
                     <p> Body:
-                        <input type="text" onChange={this.bodyChange} placeholder="Enter your message here.." maxLength="300" style={{width:"250px",height:"100px"}}/></p>
+                        <input type="text" onChange={this.bodyChange} value={this.state.body} placeholder="Enter your message here.." maxLength="300" style={{width:"250px",height:"100px"}}/></p>
                 </div>
                 <button style={{background:"cyan",width:"150px",height:"50px"}} onClick={this.sendMessage}>SEND</button>
                 <p style={{textAlign:"left"}}><Link to={"/HomePage"}><button style={{background:"red"}} onClick={this.logOut}>Log Out</button></Link></p>
