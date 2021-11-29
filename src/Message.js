@@ -43,6 +43,7 @@ class Messages extends React.Component{
                 <div>Message from : {message.sender}</div>
                 <div>The title :{message.title}</div>
                 <div>{message.body}</div>
+                {message.read==1 ? <div style={{color:"green",fontWeight:"bold"}}> The message was read VV </div>:<div style={{color:"red" , fontWeight:"bold"}}> Unread message</div>}
                 <button onClick={() => axios.get("http://127.0.0.1:8989/set-read-message", {
                     params: {
                         messageId:message.id

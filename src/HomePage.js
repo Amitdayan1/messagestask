@@ -4,9 +4,6 @@ import {Link} from "react-router-dom";
 import Cookies from "universal-cookie/es6";
 import {Redirect} from "react-router";
 
-
-
-
 class HomePage extends React.Component {
 
     state = {
