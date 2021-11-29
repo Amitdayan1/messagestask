@@ -32,36 +32,30 @@ class MessageSender extends React.Component {
             body:body
         })
     }
-
-    getCurrentUserName=()=>{
-    let cookies=new Cookies()
-    let token= cookies.get("token")
-    axios.get("http://127.0.0.1:8989/get-username-by-token",{
-    params:{
-        token:token
-    }
-}).then(response=>{
-    console.log(response.data)
-        this.setState({
-            currentUserName:response.data
-        })
-})}
     sendMessage=()=>{
-       this.getCurrentUserName()
-        axios.get("http://127.0.0.1:8989/send-message",{
-            params: {
-                sender: this.state.currentUserName,
-                receiver: this.state.usernameReceiver,
-                title: this.state.title,
-                body: this.state.body
-            }}).then(response=>{
-                if(response.data){
-                alert("Message Sent")}
-                else {
+        let cookies=new Cookies()
+        let token= cookies.get("token")
+        axios.get("http://127.0.0.1:8989/get-username-by-token",{
+            params:{
+                token:token
+            }})
+            .then(response1=> {
+            axios.get("http://127.0.0.1:8989/send-message", {
+                params: {
+                    sender: response1.data,
+                    receiver: this.state.usernameReceiver,
+                    title: this.state.title,
+                    body: this.state.body
+                }
+            }).then(response => {
+                if (response.data) {
+                    alert("Message Sent")
+                } else {
                     alert("one or more details are wrong")
                 }
-            }
-        )}
+            })})
+        }
+
 
     logOut=()=>{
         let cookies=new Cookies();
