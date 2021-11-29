@@ -8,11 +8,9 @@ import {Link} from "react-router-dom";
 class MessageSender extends React.Component {
 
     state = {
-        currentUserName:"",
         usernameReceiver: "",
         title: "",
         body:"",
-        validFields: false
     }
     usernameReceiverChange = (e) => {
         let usernameReceiver = e.target.value;
@@ -53,7 +51,20 @@ class MessageSender extends React.Component {
                 } else {
                     alert("one or more details are wrong")
                 }
+                this.clearInputs();
+
             })})
+
+
+        }
+
+    clearInputs=()=>{
+        this.setState({
+            usernameReceiver: "",
+            title: "",
+            body:"",
+        })
+
         }
 
 
