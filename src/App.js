@@ -6,21 +6,44 @@ import {BrowserRouter} from "react-router-dom";
 import MessageSender from "./MessageSender";
 import UserPage from "./UserPage";
 import Message from "./Message";
+import Cookies from "universal-cookie/es6";
 
 
 
 class App extends React.Component {
+    state = {
+        loggedIn :false ,
 
+    }
+    componentDidMount() {
+        const cookies = new Cookies();
+        if(cookies.get("token") && cookies.get("token").length>0) {
+            this.setState({loggedIn :true });
+
+        }
+    }
 
     render() {
+        { console.log(this.state.loggedIn)}
         return (
             <div className="App">
+
                 <BrowserRouter>
-                    <Redirect to={"/HomePage"}/>
-                    <Route path={"/HomePage"} component={HomePage}/>
-                    <Route path={"/MessageSender"} component={MessageSender}/>
-                    <Route path={"/Message"} component={Message}/>
-                    <Route path={"/UserPage"} component={UserPage}/>
+                    {this.state.loggedIn?
+                        <div>
+
+                            <Route path={"/MessageSender"} component={MessageSender}/>
+                            <Route path={"/Message"} component={Message}/>
+                            <Route path={"/UserPage"} component={UserPage}/>
+
+                    </div>:
+                    <div>
+                        <Route path={"/"} component={HomePage}/>
+
+                    </div>
+
+                    }
+
                 </BrowserRouter>
                 <p className="names">This task made by Amit Dayan & Adi Dayan & Yuval Sarusi & Barak Bitan </p>
             </div>

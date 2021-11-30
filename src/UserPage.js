@@ -5,8 +5,6 @@ import Cookies from "universal-cookie/es6";
 
 
 class UserPage extends React.Component {
-
-
     logOut=()=>{
      let cookies=new Cookies();
      cookies.remove("token");

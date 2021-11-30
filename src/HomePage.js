@@ -9,7 +9,6 @@ class HomePage extends React.Component {
     state = {
         username: "",
         password: "",
-        validFields: false,
         success:false
     }
     usernameChange = (e) => {
@@ -26,35 +25,37 @@ class HomePage extends React.Component {
     }
      validatePhone(phone) {
         const regex = /^\(?([0])?([5])\)?([0-9])\)?([0-9]{7})$/;
-        console.log(regex.test(phone));
+        if(!regex.test(phone)){
+            alert("Invalid phone number ");
+        }
         return regex.test(phone);
+
     }
     validatePassword(password) {
         const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
-        console.log(regex.test(password));
+        if (!regex.test(password)){
+            alert("Invalid password");
+
+        }
         return regex.test(password);
     }
     signUp=()=> {
         if (this.validatePhone(this.state.username) && this.validatePassword(this.state.password)){
-            this.setState({
-                validFields: true
-            })
+
         axios.get("http://127.0.0.1:8989/add-user",{
             params: {
                 username: this.state.username,
                 password: this.state.password
             } })
             .then((response)=> {
+                console.log("ente :"+response.data);
+
                 if (response.data) {
                     alert("user created successfully")
                 }
-                else {  alert("username already exist ! ")}
+               else {  alert("username already exist ! ")}
             })}
-        else {
-            this.setState({
-                validFields: false
-            })
-        }
+
     }
     login=()=>{
         axios.get("http://127.0.0.1:8989/log-in",{
@@ -66,17 +67,21 @@ class HomePage extends React.Component {
                     case "wrongName":  alert("This username not exist"); break;
                     case "wrongPassword":  alert("Wrong password"); break;
                     case "lockedUser":   alert("Blocked Account Contact Administrator"); break;
-                    default :this.setState({success:true});
+                    default :
+                        this.setState({success:true});
+                        let cookies = new Cookies()
+                        cookies.set("token", response.data)
+                        window.location.reload();
+
                 }
-            let cookies = new Cookies()
-            cookies.set("token", response.data)
+
             })
     }
 
 
     render() {
 
-        {if(this.state.success) return (<Redirect to={"/UserPage"}/>)}
+      {if(this.state.success) return (<Redirect to={"/UserPage"}/>)}
         return(
             <div>
                 <h1>Welcome :)</h1>
