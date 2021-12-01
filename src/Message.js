@@ -15,23 +15,17 @@ class Messages extends React.Component{
     getMessages=()=>{
     let cookies=new Cookies();
     let token=cookies.get("token");
-    axios.get("http://127.0.0.1:8989/get-username-by-token",{
-    params:{
-        token:token
-    }
-}).then(response=>{
-    console.log(response.data)
-    axios.get("http://127.0.0.1:8989/get-messages-by-username",{
+
+    axios.get("http://127.0.0.1:8989/get-messages-by-token",{
         params:{
-            username:response.data
+            token:token
         }
     }).then(response1=>{
-        console.log(response1.data)
         this.setState({
             messages:response1.data
         })
     })
-})
+
 }
     render(){
     return(
