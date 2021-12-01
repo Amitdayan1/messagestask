@@ -69,8 +69,11 @@ class MessageSender extends React.Component {
 
 
     logOut=()=>{
+
         let cookies=new Cookies();
         cookies.remove("token");
+        window.location.reload();
+
     }
 
     render() {
@@ -91,7 +94,7 @@ class MessageSender extends React.Component {
                         <input type="text" onChange={this.bodyChange} value={this.state.body} placeholder="Enter your message here.." maxLength="300" style={{width:"250px",height:"100px"}}/></p>
                 </div>
                 <button style={{background:"cyan",width:"150px",height:"50px"}} onClick={this.sendMessage}>SEND</button>
-                <p style={{textAlign:"left"}}><Link to={"/HomePage"}><button style={{background:"red"}} onClick={this.logOut}>Log Out</button></Link></p>
+                <p style={{textAlign:"left"}}><Link to={"/"}><button style={{background:"red"}} onClick={this.logOut}>Log Out</button></Link></p>
             </div>
         )
 
