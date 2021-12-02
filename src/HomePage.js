@@ -84,7 +84,7 @@ class HomePage extends React.Component {
       {if(this.state.success) return (<Redirect to={"/UserPage"}/>)}
         return(
             <div>
-                <h1>Welcome :)</h1>
+                <h1 style={{color:"magenta"}}>Welcome :)</h1>
                 <div>
                     <p> Please Enter Valid Username (Phone number) :
                         <input type="text" pattern="\d*" onChange={this.usernameChange} placeholder="Enter phone number.." maxLength="10"/></p>

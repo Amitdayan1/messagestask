@@ -80,22 +80,25 @@ class MessageSender extends React.Component {
         return(
             <div>
                 <p style={{textAlign:"left"}}><Link to={"/UserPage"}><button style={{ marginBottom:"3%",background:"green"}}>Back to user page</button></Link></p>
-               <h1> Send a message to your friends :) </h1>
-                <div style={{textAlign:"center"}}>
-                    <p> Message to (Phone number) :
+               <h1 style={{color:"magenta"}}> Send message to your friends :) </h1>
+                <div style={{backgroundColor:"#f2f2f2",width:"50%",marginLeft:"25%"}}>
+                <div>
+                    <p> <label style={{fontWeight:"bold"}}>Message to (Phone number) :</label>
                         <input type="text" pattern="\d*" onChange={this.usernameReceiverChange} value={this.state.usernameReceiver} placeholder="Enter phone number.." maxLength="10"/></p>
                 </div>
                 <div>
-                    <p> Title:
+                    <p>  <label style={{fontWeight:"bold"}}>Title:</label>
                         <input type="text" onChange={this.titleChange} value={this.state.title} placeholder="Enter title.." maxLength="30"/></p>
                 </div>
                 <div>
-                    <p> Body:
+                    <p>   <label style={{fontWeight:"bold"}}>Body:</label>
                         <input type="text" onChange={this.bodyChange} value={this.state.body} placeholder="Enter your message here.." maxLength="300" style={{width:"250px",height:"100px"}}/></p>
                 </div>
                 <button style={{background:"cyan",width:"150px",height:"50px"}} onClick={this.sendMessage}>SEND</button>
+                </div>
                 <p style={{textAlign:"left"}}><Link to={"/"}><button style={{background:"red"}} onClick={this.logOut}>Log Out</button></Link></p>
             </div>
+
         )
 
     }

@@ -14,10 +14,10 @@ class UserPage extends React.Component {
     render() {
         return(
             <div>
-                <h1>Welcome :) </h1>
+                <h1 style={{color:"magenta"}}>Welcome :) </h1>
                 <div>
-                <Link to={"/Message"}><button style={{background:"yellow",width:"150px",height:"50px",margin:"2%"}}> Your messages </button></Link>
-                <Link to={"/MessageSender"}><button style={{background:"cyan",width:"150px",height:"50px"}}>Send message</button></Link>
+                <Link to={"/Message"}><button style={{background:"cyan",width:"150px",height:"50px",margin:"2%"}}> Your messages </button></Link>
+                <Link to={"/MessageSender"}><button style={{background:"lightblue",width:"150px",height:"50px"}}>Send message</button></Link>
                 </div>
                 <p style={{textAlign:"left"}}><Link to={"/HomePage"}><button style={{background:"red"}} onClick={this.logOut}>Log Out</button></Link></p>
             </div>
