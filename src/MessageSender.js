@@ -8,26 +8,30 @@ import {Link} from "react-router-dom";
 class MessageSender extends React.Component {
 
     state = {
-        usernameReceiver: "",
-        title: "",
+        usernameReceiver:"",
+        title:"",
         body:"",
+
     }
     usernameReceiverChange = (e) => {
         let usernameReceiver = e.target.value;
         this.setState({
-            usernameReceiver: usernameReceiver
+            usernameReceiver: usernameReceiver,
+
         })
     }
     titleChange = (e) => {
         let title = e.target.value;
         this.setState({
-            title:title
+            title:title,
+
         })
     }
     bodyChange = (e) => {
         let body = e.target.value;
         this.setState({
-            body:body
+            body:body,
+
         })
     }
     sendMessage=()=>{
@@ -54,8 +58,6 @@ class MessageSender extends React.Component {
                 this.clearInputs();
 
             })})
-
-
         }
 
     clearInputs=()=>{
@@ -94,7 +96,7 @@ class MessageSender extends React.Component {
                     <p>   <label style={{fontWeight:"bold"}}>Body:</label>
                         <input type="text" onChange={this.bodyChange} value={this.state.body} placeholder="Enter your message here.." maxLength="300" style={{width:"250px",height:"100px"}}/></p>
                 </div>
-                <button style={{background:"cyan",width:"150px",height:"50px"}} onClick={this.sendMessage}>SEND</button>
+                <button style={{background:"cyan",width:"150px",height:"50px"}} onClick={this.sendMessage} disabled={this.state.body.length<=0&&this.state.title.length<=0&&this.state.usernameReceiver<=0}>SEND</button>
                 </div>
                 <p style={{textAlign:"left"}}><Link to={"/"}><button style={{background:"red"}} onClick={this.logOut}>Log Out</button></Link></p>
             </div>
